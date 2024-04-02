@@ -80,31 +80,15 @@ contract Arbitrage is Test {
          * Please add your solution below
          */
 
-        address[5] memory sequence = [address(tokenB), address(tokenA), address(tokenD), address(tokenC), address(tokenB)];
+        // address[5] memory sequence = [address(tokenB), address(tokenA), address(tokenD), address(tokenC), address(tokenB)];
+        address[] memory path = new address[](5);
+        path[0] = address(tokenB);
+        path[1] = address(tokenA);
+        path[2] = address(tokenD);
+        path[3] = address(tokenC);
+        path[4] = address(tokenB);
 
-        address[] memory path = new address[](2);
-        path[0] = sequence[0];
-        path[1] = sequence[1];
-        router.swapExactTokensForTokens(5 ether, 0, path, arbitrager, block.timestamp);
-
-        uint balanceA = tokenA.balanceOf(arbitrager);
-        tokenA.approve(address(router), balanceA);
-        path[0] = sequence[1];
-        path[1] = sequence[2];
-        router.swapExactTokensForTokens(balanceA, 0, path, arbitrager, block.timestamp);
-
-        uint balanceD = tokenD.balanceOf(arbitrager);
-        tokenD.approve(address(router), balanceD);
-        path[0] = sequence[2];
-        path[1] = sequence[3];
-        router.swapExactTokensForTokens(balanceD, 0, path, arbitrager, block.timestamp);
-
-        uint balanceC = tokenC.balanceOf(arbitrager);
-        tokenC.approve(address(router), balanceC);
-        path[0] = sequence[3];
-        path[1] = sequence[4];
-        router.swapExactTokensForTokens(balanceC, 0, path, arbitrager, block.timestamp);
-        
+        router.swapExactTokensForTokens(5 ether, 20, path, arbitrager, block.timestamp);
         /**
          * Please add your solution above
          */

@@ -55,11 +55,14 @@ for d in range(5, 6):
         liquidity = liquidity_copy.copy()
         path = generate_path(d)
         amount = b_init
+        token_track = [amount]
 
         for step in range(d - 1):
             amount = arbitrage(path[step], path[step + 1], amount)
+            token_track.append(amount)
         
         if amount > b_final_expected:
             path_str = '->'.join([tokens[i] for i in path])
             print(f'Path: {path_str}, tokenB balance = {amount}')
+            # print(f"Token balance before each swap: {token_track}")
             break
